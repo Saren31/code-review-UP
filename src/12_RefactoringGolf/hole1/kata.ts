@@ -1,10 +1,8 @@
+/* eslint-disable */
 
-const tileVide = ' ';
-const tilePleine = 'O';
-const nbTilesMax = 3;
 export class Game {
+  private _lastSymbol = ' ';
   private _board: Board = new Board();
-  private _lastSymbol = tileVide;
 
   public Play(symbol: string, x: number, y: number): void {
     this.validateFirstMove(symbol);
@@ -16,8 +14,8 @@ export class Game {
   }
 
   private validateFirstMove(player: string) {
-    if (this._lastSymbol == tileVide) {
-      if (player == tilePleine) {
+    if (this._lastSymbol == ' ') {
+      if (player == 'O') {
         throw new Error('Invalid first player');
       }
     }
@@ -30,7 +28,7 @@ export class Game {
   }
 
   private validatePositionIsEmpty(x: number, y: number) {
-    if (this._board.TileAt(x, y).Symbol != tileVide) {
+    if (this._board.TileAt(x, y).Symbol != ' ') {
       throw new Error('Invalid position');
     }
   }
@@ -56,14 +54,14 @@ export class Game {
       return this._board.TileAt(2, 0)!.Symbol;
     }
 
-    return tileVide;
+    return ' ';
   }
 
   private isFirstRowFull() {
     return (
-      this._board.TileAt(0, 0)!.Symbol != tileVide &&
-      this._board.TileAt(0, 1)!.Symbol != tileVide &&
-      this._board.TileAt(0, 2)!.Symbol != tileVide
+      this._board.TileAt(0, 0)!.Symbol != ' ' &&
+      this._board.TileAt(0, 1)!.Symbol != ' ' &&
+      this._board.TileAt(0, 2)!.Symbol != ' '
     );
   }
 
@@ -76,9 +74,9 @@ export class Game {
 
   private isSecondRowFull() {
     return (
-      this._board.TileAt(1, 0)!.Symbol != tileVide &&
-      this._board.TileAt(1, 1)!.Symbol != tileVide &&
-      this._board.TileAt(1, 2)!.Symbol != tileVide
+      this._board.TileAt(1, 0)!.Symbol != ' ' &&
+      this._board.TileAt(1, 1)!.Symbol != ' ' &&
+      this._board.TileAt(1, 2)!.Symbol != ' '
     );
   }
 
@@ -91,9 +89,9 @@ export class Game {
 
   private isThirdRowFull() {
     return (
-      this._board.TileAt(2, 0)!.Symbol != tileVide &&
-      this._board.TileAt(2, 1)!.Symbol != tileVide &&
-      this._board.TileAt(2, 2)!.Symbol != tileVide
+      this._board.TileAt(2, 0)!.Symbol != ' ' &&
+      this._board.TileAt(2, 1)!.Symbol != ' ' &&
+      this._board.TileAt(2, 2)!.Symbol != ' '
     );
   }
 
@@ -115,9 +113,9 @@ class Board {
   private _plays: Tile[] = [];
 
   constructor() {
-    for (let i = 0; i < nbTilesMax ; i++) {
-      for (let j = 0; j < nbTilesMax; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: tileVide };
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        const tile: Tile = { X: i, Y: j, Symbol: ' ' };
         this._plays.push(tile);
       }
     }
