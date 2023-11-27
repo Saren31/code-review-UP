@@ -3,7 +3,6 @@ const tileVide = ' ';
 const tilePleine = 'O';
 const nbTilesMax = 3;
 export class Game {
-  private _lastSymbol = leBonNom;
   private _board: Board = new Board();
 
   public Play(symbol: string, x: number, y: number): void {
