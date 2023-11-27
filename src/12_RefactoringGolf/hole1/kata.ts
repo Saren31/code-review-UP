@@ -103,6 +103,51 @@ export class Game {
       this._board.TileAt(2, 2)!.Symbol == this._board.TileAt(2, 1)!.Symbol
     );
   }
+
+  private isFirstRowFull() {
+    return (
+      this._board.TileAt(0, 0)!.Symbol != ' ' &&
+      this._board.TileAt(0, 1)!.Symbol != ' ' &&
+      this._board.TileAt(0, 2)!.Symbol != ' '
+    );
+  }
+
+  private isFirstRowFullWithSameSymbol() {
+    return (
+      this._board.TileAt(0, 0)!.Symbol == this._board.TileAt(0, 1)!.Symbol &&
+      this._board.TileAt(0, 2)!.Symbol == this._board.TileAt(0, 1)!.Symbol
+    );
+  }
+
+  private isSecondRowFull() {
+    return (
+      this._board.TileAt(1, 0)!.Symbol != ' ' &&
+      this._board.TileAt(1, 1)!.Symbol != ' ' &&
+      this._board.TileAt(1, 2)!.Symbol != ' '
+    );
+  }
+
+  private isSecondRowFullWithSameSymbol() {
+    return (
+      this._board.TileAt(1, 0)!.Symbol == this._board.TileAt(1, 1)!.Symbol &&
+      this._board.TileAt(1, 2)!.Symbol == this._board.TileAt(1, 1)!.Symbol
+    );
+  }
+
+  private isThirdRowFull() {
+    return (
+      this._board.TileAt(2, 0)!.Symbol != ' ' &&
+      this._board.TileAt(2, 1)!.Symbol != ' ' &&
+      this._board.TileAt(2, 2)!.Symbol != ' '
+    );
+  }
+
+  private isThirdRowFullWithSameSymbol() {
+    return (
+      this._board.TileAt(2, 0)!.Symbol == this._board.TileAt(2, 1)!.Symbol &&
+      this._board.TileAt(2, 2)!.Symbol == this._board.TileAt(2, 1)!.Symbol
+    );
+  }
 }
 
 interface Tile {
@@ -130,4 +175,6 @@ class Board {
   public AddTileAt(symbol: string, x: number, y: number): void {
     this._plays.find((t: Tile) => t.X == x && t.Y == y)!.Symbol = symbol;
   }
+
+
 }

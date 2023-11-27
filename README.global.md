@@ -85,6 +85,16 @@ npm install -g npm@latest
 
 nvm install node
 
+### install yarn
+
+https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
+
+### then, run yarn to install all dependencies
+
+yarn needs to read the package.json file to know the dependencies and the scripts definitions
+
+**THE FOLOWING COMMAND LINES must be typed in a terminal, at the folder PATH where there is the 'package.json' file**
+
 ```sh
 yarn install --ignore-engines
 ```
@@ -114,3 +124,10 @@ yarn mutants
 ```sh
 yarn watch
 ```
+
+## Explanations, References
+
+
+https://blog.logrocket.com/using-prettier-eslint-automate-formatting-fixing-javascript/#differences-between-eslint-prettier
+
+https://code.visualstudio.com/docs/remote/wsl-tutorial
