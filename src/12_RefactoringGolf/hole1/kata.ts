@@ -4,6 +4,7 @@ const tilePleine = 'O';
 const nbTilesMax = 3;
 export class Game {
   private _board: Board = new Board();
+  private _lastSymbol = tileVide;
 
   public Play(symbol: string, x: number, y: number): void {
     this.validateFirstMove(symbol);
@@ -16,7 +17,7 @@ export class Game {
 
   private validateFirstMove(player: string) {
     if (this._lastSymbol == tileVide) {
-      if (player == tylePleine) {
+      if (player == tilePleine) {
         throw new Error('Invalid first player');
       }
     }
