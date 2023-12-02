@@ -8,7 +8,7 @@ const secondColumn = 1;
 const thirdColumn = 2;
 
 const playerO = 'O';
-const emptyPlay = 'X';
+const emptyPlay = '';
 
 export class Game {
   private _lastSymbol = emptyPlay;
@@ -120,7 +120,7 @@ class Board {
       return this.playerAt(thirdRow, firstColumn);
     }
 
-    return emptyPlay;
+    return 'X';
   }
 
   private isRowFull(row: number) {
