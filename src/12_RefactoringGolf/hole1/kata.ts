@@ -82,8 +82,6 @@ export class Game {
         this._board.TileAt(row, secondColumn)!.Symbol
     );
   }
-
-
 }
 
 interface Tile {
@@ -96,9 +94,9 @@ class Board {
   private _plays: Tile[] = [];
 
   constructor() {
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: ' ' };
+    for (let i = 0; i < nbTilesMax ; i++) {
+      for (let j = 0; j < nbTilesMax; j++) {
+        const tile: Tile = { X: i, Y: j, Symbol: tileVide };
         this._plays.push(tile);
       }
     }
@@ -111,4 +109,6 @@ class Board {
   public AddTileAt(symbol: string, x: number, y: number): void {
     this._plays.find((t: Tile) => t.X == x && t.Y == y)!.Symbol = symbol;
   }
+
+
 }
