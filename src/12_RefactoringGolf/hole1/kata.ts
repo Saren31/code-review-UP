@@ -8,7 +8,7 @@ const secondColumn = 1;
 const thirdColumn = 2;
 
 const playerO = 'O';
-const emptyPlay = '';
+const emptyPlay = ' ';
 
 export class Game {
   private _lastSymbol = emptyPlay;
@@ -57,9 +57,9 @@ export class Game {
 }
 
 class Tile {
-  private x: number;
-  private y: number;
-  private symbol: string;
+  private x: number = 0;
+  private y: number = 0;
+  private symbol: string = emptyPlay;
 
   constructor(x: number, y: number, symbol: string) {
     this.x = x;
@@ -76,7 +76,7 @@ class Tile {
   }
 
   get isNotEmpty() {
-    return this.symbol != emptyPlay;
+    return this.getSymbol !== emptyPlay;
   }
 
   hasSamePlayer(tile: Tile) {
