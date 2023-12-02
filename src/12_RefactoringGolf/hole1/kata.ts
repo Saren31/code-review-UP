@@ -142,7 +142,7 @@ class Board {
     return this.TileAt(x1,y1).hasSamePlayer(this.TileAt(x2,y2));
   }
 
-  private isTilePlayed(x: number, y: number) {
+  public isTilePlayed(x: number, y: number) {
     return this._plays.find((t: Tile) => t.hasSameCoordinates(new Tile(x,y, emptyPlay)))!.isNotEmpty();
   }
 
