@@ -94,7 +94,7 @@ class Board {
   constructor() {
     for (let i = firstRow; i <= thirdRow; i++) {
       for (let j = firstColumn; j <= thirdColumn; j++) {
-        this._plays.push(new Tile(x,y,emptyPlay);
+        this._plays.push(new Tile(x,y,emptyPlay));
       }
     }
   }
