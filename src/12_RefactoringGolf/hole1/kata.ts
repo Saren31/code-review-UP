@@ -67,7 +67,7 @@ class Tile {
     this.symbol = symbol;
   }
 
-  getSymbol() {
+  get getSymbol() {
     return this.symbol;
   }
 
@@ -75,12 +75,12 @@ class Tile {
     this.symbol = symbol;
   }
 
-  isNotEmpty() {
+  get isNotEmpty() {
     return this.symbol != emptyPlay;
   }
 
   hasSamePlayer(tile: Tile) {
-    return this.getSymbol() == tile.getSymbol();
+    return this.getSymbol === tile.getSymbol;
   }
 
   hasSameCoordinates(tile: Tile) {
@@ -104,7 +104,7 @@ class Board {
   }
 
   public AddTileAt(tile: Tile): void {
-    this._plays.find((t: Tile) => t.hasSameCoordinates(tile))!.updateSymbol(tile.getSymbol());
+    this._plays.find((t: Tile) => t.hasSameCoordinates(tile))!.updateSymbol(tile.getSymbol);
   }
 
   public findRowFullWithSamePlayer(): string {
@@ -120,7 +120,7 @@ class Board {
       return this.playerAt(thirdRow, firstColumn);
     }
 
-    return 'X';
+    return emptyPlay;
   }
 
   private isRowFull(row: number) {
@@ -143,10 +143,10 @@ class Board {
   }
 
   public isTilePlayed(x: number, y: number) {
-    return this._plays.find((t: Tile) => t.hasSameCoordinates(new Tile(x,y, emptyPlay)))!.isNotEmpty();
+    return this._plays.find((t: Tile) => t.hasSameCoordinates(new Tile(x,y, emptyPlay)))!.isNotEmpty;
   }
 
   private playerAt(x: number, y: number) {
-    return this.TileAt(x, y)!.getSymbol();
+    return this.TileAt(x, y)!.getSymbol;
   }
 }
