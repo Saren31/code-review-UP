@@ -8,7 +8,7 @@ const secondColumn = 1;
 const thirdColumn = 2;
 
 const playerO = 'O';
-const emptyPlay = ' ';
+const emptyPlay = 'X';
 
 export class Game {
   private _lastSymbol = emptyPlay;
