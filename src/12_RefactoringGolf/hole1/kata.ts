@@ -38,7 +38,7 @@ export class Game {
   }
 
   private validatePositionIsEmpty(x: number, y: number) {
-    if this._board.isTilePlayed(x, y)) {
+    if (this._board.isTilePlayed(x, y)) {
       throw new Error('Invalid position');
     }
   }
@@ -48,7 +48,7 @@ export class Game {
   }
 
   private updateBoard(player: string, x: number, y: number) {
-    this._board.AddTileAt(new Tile(x,y,player);
+    this._board.AddTileAt(new Tile(x,y,player));
   }
 
   public Winner(): string {
