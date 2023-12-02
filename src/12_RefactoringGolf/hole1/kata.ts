@@ -8,23 +8,23 @@ const secondColumn = 1;
 const thirdColumn = 2;
 
 const playerO = 'O';
-const emptyPlay = ' ';
+const noPlayer = ' ';
 
 export class Game {
-  private _lastSymbol = emptyPlay;
+  private _lastPlayer = noPlayer;
   private _board: Board = new Board();
 
-  public Play(symbol: string, x: number, y: number): void {
-    this.validateFirstMove(symbol);
-    this.validatePlayer(symbol);
+  public Play(player: string, x: number, y: number): void {
+    this.validateFirstMove(player);
+    this.validatePlayer(player);
     this.validatePositionIsEmpty(x, y);
 
-    this.updateLastPlayer(symbol);
-    this.updateBoard(symbol, x, y);
+    this.updateLastPlayer(player);
+    this.updateBoard(player, x, y);
   }
 
   private validateFirstMove(player: string) {
-    if (this._lastSymbol == emptyPlay) {
+    if (this._lastPlayer == noPlayer) {
       if (player == playerO) {
         throw new Error('Invalid first player');
       }
@@ -32,23 +32,23 @@ export class Game {
   }
 
   private validatePlayer(player: string) {
-    if (player == this._lastSymbol) {
+    if (player == this._lastPlayer) {
       throw new Error('Invalid next player');
     }
   }
 
   private validatePositionIsEmpty(x: number, y: number) {
-    if (this._board.TileAt(x, y).Symbol != emptyPlay) {
+    if (this._board.isTilePlayedAt(x, y)) {
       throw new Error('Invalid position');
     }
   }
 
   private updateLastPlayer(player: string) {
-    this._lastSymbol = player;
+    this._lastPlayer = player;
   }
 
   private updateBoard(player: string, x: number, y: number) {
-    this._board.AddTileAt(player, x, y);
+    this._board.AddTileAt(new Tile(x, y, player));
   }
 
   public Winner(): string {
@@ -56,60 +56,98 @@ export class Game {
   }
 }
 
-interface Tile {
-  X: number;
-  Y: number;
-  Symbol: string;
+class Tile {
+  private x: number = 0;
+  private y: number = 0;
+  private player: string = noPlayer;
+
+  constructor(x: number, y: number, player: string) {
+    this.x = x;
+    this.y = y;
+    this.player = player;
+  }
+
+  get Player() {
+    return this.player;
+  }
+
+  get isNotEmpty() {
+    return this.Player !== noPlayer;
+  }
+
+  hasSamePlayerAs(other: Tile) {
+    return this.Player === other.Player;
+  }
+
+  hasSameCoordinatesAs(other: Tile) {
+    return this.x == other.x && this.y == other.y;
+  }
+
+  updatePlayer(newPlayer: string) {
+    this.player = newPlayer;
+  }
 }
 
 class Board {
   private _plays: Tile[] = [];
 
   constructor() {
-    for (let i = firstRow; i <= thirdRow; i++) {
-      for (let j = firstColumn; j <= thirdColumn; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: emptyPlay };
-        this._plays.push(tile);
+    for (let x = firstRow; x <= thirdRow; x++) {
+      for (let y = firstColumn; y <= thirdColumn; y++) {
+        this._plays.push(new Tile(x, y, noPlayer));
       }
     }
   }
 
-  public TileAt(x: number, y: number): Tile {
-    return this._plays.find((t: Tile) => t.X == x && t.Y == y)!;
+  public isTilePlayedAt(x: number, y: number) {
+    return this._plays.find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, noPlayer)))!
+      .isNotEmpty;
   }
 
-  public AddTileAt(symbol: string, x: number, y: number): void {
-    this._plays.find((t: Tile) => t.X == x && t.Y == y)!.Symbol = symbol;
+  public AddTileAt(tile: Tile): void {
+    this._plays.find((t: Tile) => t.hasSameCoordinatesAs(tile))!.updatePlayer(tile.Player);
   }
 
   public findRowFullWithSamePlayer(): string {
-    if (this.isRowFull(firstRow) && this.isRowFullWithSameSymbol(firstRow)) {
-      return this.TileAt(firstRow, firstColumn)!.Symbol;
+    if (this.isRowFull(firstRow) && this.isRowFullWithSamePlayer(firstRow)) {
+      return this.playerAt(firstRow, firstColumn);
     }
 
-    if (this.isRowFull(secondRow) && this.isRowFullWithSameSymbol(secondRow)) {
-      return this.TileAt(secondRow, firstColumn)!.Symbol;
+    if (this.isRowFull(secondRow) && this.isRowFullWithSamePlayer(secondRow)) {
+      return this.playerAt(secondRow, firstColumn);
     }
 
-    if (this.isRowFull(thirdRow) && this.isRowFullWithSameSymbol(thirdRow)) {
-      return this.TileAt(thirdRow, firstColumn)!.Symbol;
+    if (this.isRowFull(thirdRow) && this.isRowFullWithSamePlayer(thirdRow)) {
+      return this.playerAt(thirdRow, firstColumn);
     }
 
-    return emptyPlay;
+    return noPlayer;
+  }
+
+  private hasSamePlayer(x: number, y: number, otherX: number, otherY: number) {
+    return this.TileAt(x, y)!.hasSamePlayerAs(this.TileAt(otherX, otherY)!);
+  }
+
+  private playerAt(x: number, y: number) {
+    return this.TileAt(x, y)!.Player;
+  }
+
+  private TileAt(x: number, y: number): Tile {
+    return this._plays.find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, noPlayer)))!;
   }
 
   private isRowFull(row: number) {
     return (
-      this.TileAt(row, firstColumn)!.Symbol != emptyPlay &&
-      this.TileAt(row, secondColumn)!.Symbol != emptyPlay &&
-      this.TileAt(row, thirdColumn)!.Symbol != emptyPlay
+      this.isTilePlayedAt(row, firstColumn) &&
+      this.isTilePlayedAt(row, secondColumn) &&
+      this.isTilePlayedAt(row, thirdColumn)
     );
   }
 
-  private isRowFullWithSameSymbol(row: number) {
+  private isRowFullWithSamePlayer(row: number) {
     return (
-      this.TileAt(row, firstColumn)!.Symbol == this.TileAt(row, secondColumn)!.Symbol &&
-      this.TileAt(row, thirdColumn)!.Symbol == this.TileAt(row, secondColumn)!.Symbol
+      this.hasSamePlayer(row, firstColumn, row, secondColumn) &&
+      this.hasSamePlayer(row, secondColumn, row, thirdColumn)
     );
   }
 }
