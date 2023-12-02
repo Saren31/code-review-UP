@@ -139,7 +139,7 @@ class Board {
   }
 
   private hasSamePlayer(x1: number, x2: number, y1: number, y2: number) {
-    return this.TileAt(x1,y1).hasSamePlayer(this.TileAt(x2,y2));
+    return this.TileAt(x1,y1)!.hasSamePlayer(this.TileAt(x2,y2)!);
   }
 
   public isTilePlayed(x: number, y: number) {
