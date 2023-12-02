@@ -37,7 +37,7 @@ export class Game {
   }
 
   private validatePositionIsEmpty(x: number, y: number) {
-    if (this._board.TileAt(x, y).Symbol != this.emptyPlay) {
+    if (this._board.TileAt(x, y).Symbol != emptyPlay) {
       throw new Error('Invalid position');
     }
   }
