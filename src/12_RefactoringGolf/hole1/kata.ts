@@ -94,8 +94,7 @@ class Board {
   constructor() {
     for (let i = firstRow; i <= thirdRow; i++) {
       for (let j = firstColumn; j <= thirdColumn; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: emptyPlay };
-        this._plays.push(tile);
+        this._plays.push(new Tile(x,y,emptyPlay);
       }
     }
   }
@@ -104,7 +103,7 @@ class Board {
     return this._plays.find((t: Tile) => t.X == x && t.Y == y)!;
   }
 
-  public AddTileAt(symbol: string, x: number, y: number): void {
+  public AddTileAt(tile: Tile): void {
     this._plays.find((t: Tile) => t.hasSameCoordinatesAs(tile))!.updateSymbol(tile.getSymbol());
   }
 
