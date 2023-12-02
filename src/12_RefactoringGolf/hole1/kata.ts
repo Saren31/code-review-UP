@@ -23,8 +23,8 @@ export class Game {
   }
 
   private validateFirstMove(player: string) {
-    if (this._lastSymbol == this.emptyPlay) {
-      if (player == this.playerO) {
+    if (this._lastSymbol == emptyPlay) {
+      if (player == playerO) {
         throw new Error('Invalid first player');
       }
     }
@@ -59,11 +59,11 @@ export class Game {
       return this._board.TileAt(secondRow, firstColumn)!.Symbol;
     }
 
-    if (this.isRowFull(thirdRow) && this.isRowFullWithSameSymbol()) {
+    if (this.isRowFull(thirdRow) && this.isRowFullWithSameSymbol(thirdRow)) {
       return this._board.TileAt(thirdRow, firstColumn)!.Symbol;
     }
 
-    return this.emptyPlay;
+    return emptyPlay;
   }
 
   private isRowFull(row: number) {
@@ -94,9 +94,9 @@ class Board {
   private _plays: Tile[] = [];
 
   constructor() {
-    for (let i = 0; i < nbTilesMax ; i++) {
-      for (let j = 0; j < nbTilesMax; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: tileVide };
+    for (let i = 0; i < thirdColumn ; i++) {
+      for (let j = 0; j < thirdColumn; j++) {
+        const tile: Tile = { X: i, Y: j, Symbol: emptyPlay };
         this._plays.push(tile);
       }
     }
