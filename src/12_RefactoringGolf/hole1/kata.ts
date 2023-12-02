@@ -98,7 +98,7 @@ class Board {
     );
   }
 
-  private findRowFullSame(): string {
+  public findRowFullSame(): string {
     if (this.isRowFull(firstRow) && this.isRowFullWithSameSymbol(firstRow)) {
       return this.TileAt(firstRow, firstColumn)!.Symbol;
     }
