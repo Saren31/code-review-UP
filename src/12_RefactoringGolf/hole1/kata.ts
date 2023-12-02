@@ -71,7 +71,7 @@ class Tile {
     return this.symbol;
   }
 
-  setSymbol(symbol: string) {
+  updateSymbol(symbol: string) {
     this.symbol = symbol;
   }
 
@@ -94,30 +94,30 @@ class Board {
   constructor() {
     for (let i = firstRow; i <= thirdRow; i++) {
       for (let j = firstColumn; j <= thirdColumn; j++) {
-        this._plays.push(new Tile(x,y,emptyPlay));
+        this._plays.push(new Tile(i,j,emptyPlay));
       }
     }
   }
 
   public TileAt(x: number, y: number): Tile {
-    return this._plays.find((t: Tile) => t.X == x && t.Y == y)!;
+    return this._plays.find((t: Tile) => t.hasSameCoordinates(new Tile(x, y, emptyPlay)))!;
   }
 
   public AddTileAt(tile: Tile): void {
-    this._plays.find((t: Tile) => t.hasSameCoordinatesAs(tile))!.updateSymbol(tile.getSymbol());
+    this._plays.find((t: Tile) => t.hasSameCoordinates(tile))!.updateSymbol(tile.getSymbol());
   }
 
   public findRowFullWithSamePlayer(): string {
     if (this.isRowFull(firstRow) && this.isRowFullWithSameSymbol(firstRow)) {
-      return this.playedAt(firstRow, firstColumn);
+      return this.playerAt(firstRow, firstColumn);
     }
 
     if (this.isRowFull(secondRow) && this.isRowFullWithSameSymbol(secondRow)) {
-      return this.playedAt(secondRow, firstColumn);
+      return this.playerAt(secondRow, firstColumn);
     }
 
     if (this.isRowFull(thirdRow) && this.isRowFullWithSameSymbol(thirdRow)) {
-      return this.playedAt(thirdRow, firstColumn);
+      return this.playerAt(thirdRow, firstColumn);
     }
 
     return emptyPlay;
@@ -139,11 +139,11 @@ class Board {
   }
 
   private hasSamePlayer(x1: number, x2: number, y1: number, y2: number) {
-    return this.TileAt(x1,y1).hasSamePlayer(this.tileAt(x2,y2));
+    return this.TileAt(x1,y1).hasSamePlayer(this.TileAt(x2,y2));
   }
 
   private isTilePlayed(x: number, y: number) {
-    return this._plays.find((t: Tile) => t.hasSameCoordinates(new Tile(x,y, emptyPlay))).isNotEmpty();
+    return this._plays.find((t: Tile) => t.hasSameCoordinates(new Tile(x,y, emptyPlay)))!.isNotEmpty();
   }
 
   private playerAt(x: number, y: number) {
