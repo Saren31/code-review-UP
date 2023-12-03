@@ -32,7 +32,7 @@ export class Game {
     }
   }
 
-  private validatePlayer(player: Player.Value) {
+  private validatePlayer(player: Player) {
     if (player.Value == this._lastPlayer) {
       throw new Error('Invalid next player');
     }
@@ -113,13 +113,13 @@ class Board {
   constructor() {
     for (let x = firstRow; x <= thirdRow; x++) {
       for (let y = firstColumn; y <= thirdColumn; y++) {
-        this._plays.push(new Tile(x, y, noPlayer));
+        this._plays.push(new Tile(x, y, new Player(noPlayer)));
       }
     }
   }
 
   public isTilePlayedAt(x: number, y: number) {
-    return this.findTileAt(new Tile(x, y, noPlayer))!.isNotEmpty;
+    return this.findTileAt(new Tile(x, y, new Player(noPlayer)))!.isNotEmpty;
   }
 
   public AddTileAt(tile: Tile): void {
@@ -155,7 +155,7 @@ class Board {
   }
 
   private TileAt(x: number, y: number): Tile {
-    return this._plays.find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, noPlayer)))!;
+    return this._plays.find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, new Player(noPlayer))))!;
   }
 
   private isRowFull(row: number) {
