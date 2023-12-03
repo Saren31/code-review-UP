@@ -59,7 +59,7 @@ export class Game {
 class Tile {
   private x: number = 0;
   private y: number = 0;
-  private player: string = noPlayer;
+  private player: Player = new Player(noPlayer);
 
   constructor(x: number, y: number, player: string) {
     this.x = x;
