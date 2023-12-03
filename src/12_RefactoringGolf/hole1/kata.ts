@@ -20,7 +20,7 @@ export class Game {
     this.validatePositionIsEmpty(x, y);
 
     this.updateLastPlayer(player);
-    this.updateBoard(new Tile(x,y,player);
+    this.updateBoard(new Tile(x,y,player));
   }
 
   private validateFirstMove(player: string) {
