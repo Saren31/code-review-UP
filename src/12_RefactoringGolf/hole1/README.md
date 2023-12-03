@@ -1,29 +1,12 @@
-# Hole 7 to Hole 8
+# Hole 10 to Hole 11
 
-Change the code in hole 9 to be identical to the code on hole 10, both implenentation and tests can change.
+Change the code in hole 10 to be identical to the code on hole 11, both implenentation and tests can change.
 
 ## Refactorings
 
-- Tackle long parameter
-  Example
-```javascript
-    this.updateBoard(player, x, y);
-```
-il y a trop de parametres dans cette fonction (mais oui!)
-il ne pourrait y en avoir qu'un qui regroupe les 3
+- Tackle primitive obssesion
 
-like this:
-```javascript
-       this.updateBoard(new Tile(x, y, player));
-```
-Ainsi, ailleurs on avait
-```javascript
-    this._board.AddTileAt(new Tile(x, y, player));
-```
- et on pourrait avoir ceci , qui est plus simple, plus concis, plus clair à lire et à comprendre      
-  ```javascript
-        this._board.AddTileAt(tile);
-  ```
+
 
 ## Tips
 
