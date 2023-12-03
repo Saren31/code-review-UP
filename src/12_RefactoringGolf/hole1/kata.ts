@@ -68,7 +68,7 @@ class Tile {
   }
 
   get Player() {
-    return this.player;
+    return this.player.Value;
   }
 
   get isNotEmpty() {
@@ -84,8 +84,26 @@ class Tile {
   }
 
   updatePlayer(newPlayer: string) {
-    this.player = newPlayer;
+    this.player.Value(newPlayer);
   }
+}
+
+class Player {
+  private value: string;
+
+  constructor(value: string) {
+    this.value = value;
+  }
+
+  get Value() {
+    return this.value;
+  }
+
+  set Value(value: string) {
+    this.value = value;
+  }
+  
+  
 }
 
 class Board {
