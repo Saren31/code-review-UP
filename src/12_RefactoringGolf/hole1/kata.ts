@@ -11,10 +11,11 @@ const playerO = 'O';
 const noPlayer = ' ';
 
 export class Game {
-  private _lastPlayer = noPlayer;
+  private _lastPlayer = new Player(noPlayer);
   private _board: Board = new Board();
 
-  public Play(player: string, x: number, y: number): void {
+  public Play(playerString: string, x: number, y: number): void {
+    player = playerString;
     this.validateFirstMove(player);
     this.validatePlayer(player);
     this.validatePositionIsEmpty(x, y);
@@ -23,16 +24,16 @@ export class Game {
     this.updateBoard(new Tile(x, y, player));
   }
 
-  private validateFirstMove(player: string) {
-    if (this._lastPlayer == noPlayer) {
-      if (player == playerO) {
+  private validateFirstMove(player: Player) {
+    if (this._lastPlayer.Value == noPlayer) {
+      if (player.Value == playerO) {
         throw new Error('Invalid first player');
       }
     }
   }
 
-  private validatePlayer(player: string) {
-    if (player == this._lastPlayer) {
+  private validatePlayer(player: Player.Value) {
+    if (player.Value == this._lastPlayer) {
       throw new Error('Invalid next player');
     }
   }
@@ -43,7 +44,7 @@ export class Game {
     }
   }
 
-  private updateLastPlayer(player: string) {
+  private updateLastPlayer(player: Player) {
     this._lastPlayer = player;
   }
 
@@ -61,10 +62,10 @@ class Tile {
   private y: number = 0;
   private player: Player = new Player(noPlayer);
 
-  constructor(x: number, y: number, player: string) {
+  constructor(x: number, y: number, player: Player) {
     this.x = x;
     this.y = y;
-    this.player = new Player(player);
+    this.player = player;
   }
 
   get Player() {
