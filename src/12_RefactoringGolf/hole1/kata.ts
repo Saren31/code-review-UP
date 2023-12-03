@@ -64,7 +64,7 @@ class Tile {
   constructor(x: number, y: number, player: string) {
     this.x = x;
     this.y = y;
-    this.player = player;
+    this.player = new Player(player);
   }
 
   get Player() {
