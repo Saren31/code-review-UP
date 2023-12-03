@@ -15,7 +15,7 @@ export class Game {
   private _board: Board = new Board();
 
   public Play(playerString: string, x: number, y: number): void {
-    var player: Player = playerString;
+    var player: Player = new Player(playerString);
     this.validateFirstMove(player);
     this.validatePlayer(player);
     this.validatePositionIsEmpty(x, y);
