@@ -84,7 +84,7 @@ class Tile {
   }
 
   updatePlayer(newPlayer: string) {
-    this.player.value = newPlayer;
+    this.player.Value = newPlayer;
   }
 }
 
