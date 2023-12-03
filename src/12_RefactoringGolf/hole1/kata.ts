@@ -33,7 +33,7 @@ export class Game {
   }
 
   private validatePlayer(player: Player) {
-    if (player.Value == this._lastPlayer) {
+    if (player.Value == this._lastPlayer.Value) {
       throw new Error('Invalid next player');
     }
   }
